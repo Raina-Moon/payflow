@@ -17,6 +17,6 @@ export async function deleteUser(id: number) {
 }
 
 export async function updateUser(id: number, user: Partial<User>) {
-  const res = await api.put<User>(`/users/${id}`, user);
+  const res = await api.patch<User>(`/users/${id}`, user);
   return res.data;
 }

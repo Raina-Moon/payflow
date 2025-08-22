@@ -67,9 +67,9 @@ export function useDeleteUserMutation() {
     mutationFn: (id: number) => deleteUser(id),
     onMutate: async (id: number) => {
       await qc.cancelQueries({ queryKey: qk.lists() });
-      const prevUsers = qc.getQueryData<User[]>(qk.lists());
+      const prevUsers = qc.getQueriesData<User[]>({ queryKey: qk.lists() });
 
-      qc.setQueryData<User[]>(qk.lists(), (old) =>
+      qc.setQueriesData<User[]>({ queryKey: qk.lists() }, (old) =>
         Array.isArray(old) ? old.filter((u) => u.id !== id) : old
       );
 
@@ -77,11 +77,8 @@ export function useDeleteUserMutation() {
 
       return { prevUsers };
     },
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: qk.lists() });
-    },
     onError: (_err, _id, ctx) => {
-      qc.setQueryData(qk.lists(), ctx?.prevUsers);
+      ctx?.prevUsers?.forEach(([key, data]) => qc.setQueryData(key, data));
     },
     onSettled: () => {
       qc.invalidateQueries({ queryKey: qk.lists() });
@@ -92,27 +89,31 @@ export function useDeleteUserMutation() {
 export function useUpdateUserMutation() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, ...user }:Partial<User> & {id:number}) => updateUser(id, user),
+    mutationFn: ({ id, ...user }: Partial<User> & { id: number }) =>
+      updateUser(id, user),
     onMutate: async (user: Partial<User> & { id: number }) => {
       await qc.cancelQueries({ queryKey: qk.lists() });
-      const prevUsers = qc.getQueryData<User[]>(qk.lists());
 
-      qc.setQueryData<User[]>(qk.lists(), (old) =>
-        old ? old.map((u) => (u.id === user.id ? { ...u, ...user } : u)) : []
+      const prevUsers = qc.getQueriesData<User[]>({ queryKey: qk.lists() });
+      const prevDetail = qc.getQueryData<User>(qk.detail(user.id));
+
+      qc.setQueriesData<User[]>({ queryKey: qk.lists() }, (old) =>
+        old ? old.map((u) => (u.id === user.id ? { ...u, ...user } : u)) : old
       );
 
-      qc.removeQueries({ queryKey: qk.detail(user.id) });
+      qc.setQueryData<User>(qk.detail(user.id), (old) =>
+        old ? { ...old, ...user } : old
+      );
 
-      return { prevUsers };
+      return { prevUsers, prevDetail };
     },
-    onSuccess: () => {
+    onError: (_err, user, ctx) => {
+      ctx?.prevUsers?.forEach(([key, data]) => qc.setQueryData(key, data));
+      qc.setQueryData(qk.detail(user.id), ctx?.prevDetail);
+    },
+    onSettled: (_data, _err, user) => {
       qc.invalidateQueries({ queryKey: qk.lists() });
-    },
-    onError: (_err, _user, ctx) => {
-      qc.setQueryData(qk.lists(), ctx?.prevUsers);
-    },
-    onSettled: () => {
-      qc.invalidateQueries({ queryKey: qk.lists() });
+      qc.invalidateQueries({ queryKey: qk.detail(user.id) });
     },
   });
 }
