@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useUsersQuery } from "../hooks";
+import type { Role, User } from "../types";
 
 const UserFilters = () => {
   const [params, setParams] = useSearchParams();
@@ -10,7 +11,13 @@ const UserFilters = () => {
   const active = params.get("active") ?? "all";
   const role = params.get("role") ?? "all";
 
-  const { data: roles = [] } = useUsersQuery();
+  const { data: users = [] } = useUsersQuery();
+
+  const roleOptions = useMemo<Role[]>(() => {
+    const set = new Set<Role>();
+    (users as User[]).forEach((u) => set.add(u.role));
+    return Array.from(set).sort();
+  }, [users]);
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -20,7 +27,7 @@ const UserFilters = () => {
       setParams(next, { replace: true });
     }, 300);
     return () => clearTimeout(t);
-  }, []);
+  }, [q, params, setParams]);
 
   const onChangeActive = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const v = e.target.value;
@@ -65,7 +72,7 @@ const UserFilters = () => {
       </select>
       <select value={role} onChange={onChangeRole}>
         <option value="all">전체 역할</option>
-        {roles.map((r) => (
+        {roleOptions.map((r) => (
           <option key={r} value={r}>
             {r}
           </option>
