@@ -1,5 +1,5 @@
 import { api } from "../../lib/apiClient";
-import { deleteUser, getUserById, listUsers } from "./api";
+import { deleteUser, getUserById, listUsers, updateUser } from "./api";
 import type { User } from "./types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -43,6 +43,34 @@ export function useDeleteUserMutation() {
       qc.invalidateQueries({ queryKey: qk.users });
     },
     onError: (_err, _id, ctx) => {
+      qc.setQueryData(qk.users, ctx?.prevUsers);
+    },
+    onSettled: () => {
+      qc.invalidateQueries({ queryKey: qk.users });
+    },
+  });
+}
+
+export function useUpdateUserMutation() {
+  const qc= useQueryClient();
+  return useMutation({
+    mutationFn: ({id,...user}) => updateUser(id, user),
+    onMutate: async (user: Partial<User> & { id: number }) => {
+      await qc.cancelQueries({ queryKey: qk.users });
+      const prevUsers = qc.getQueryData<User[]>(qk.users);
+
+      qc.setQueryData<User[]>(qk.users, (old) =>
+        old ? old.map((u) => (u.id === user.id ? { ...u, ...user } : u)) : []
+      );
+
+      qc.removeQueries({ queryKey: qk.user(user.id) });
+
+      return { prevUsers };
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.users });
+    },
+    onError: (_err, _user, ctx) => {
       qc.setQueryData(qk.users, ctx?.prevUsers);
     },
     onSettled: () => {

@@ -11,7 +11,12 @@ export async function getUserById(id: number) {
   return res.data;
 }
 
-export async function deleteUser(id:number) {
+export async function deleteUser(id: number) {
   const res = await api.delete(`/users/${id}`);
+  return res.data;
+}
+
+export async function updateUser(id: number, user: Partial<User>) {
+  const res = await api.put<User>(`/users/${id}`, user);
   return res.data;
 }
