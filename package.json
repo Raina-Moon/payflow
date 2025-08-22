@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "api": "json-server-auth --watch db.json --port 4000",
+    "api": "json-server --watch db.json --port 4000",
     "dev:all": "concurrently \"yarn dev\" \"yarn api\""
   },
   "dependencies": {
