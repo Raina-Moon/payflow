@@ -8,6 +8,8 @@ import {
 import { fmtDate } from "../../../shared/lib/date";
 import Modal from "../../../shared/components/Modal";
 import type { Role } from "../types";
+import { usePaymentByUserIdQuery } from "../../payments/hooks";
+import { formatPrice } from "../../../shared/lib/price";
 
 const UserDetailPage = () => {
   const { id } = useParams();
@@ -16,6 +18,7 @@ const UserDetailPage = () => {
 
   const { data: user, isLoading, isError } = useUserQuery(Number(id));
   const deleteMutation = useDeleteUserMutation();
+  const { data: payment } = usePaymentByUserIdQuery(Number(id));
 
   const handleDelete = () => {
     deleteMutation.mutate(Number(id), {
@@ -62,11 +65,27 @@ const UserDetailPage = () => {
         {deleteMutation.isPending ? "삭제 중..." : "삭제"}
       </button>
       <button onClick={() => setOpenModal(true)}>수정</button>
-      <h1>{user?.name}</h1>
-      <p>Email: {user?.email}</p>
-      <p>Role: {user?.role}</p>
-      <p>Status: {user?.active ? "활동중" : "비활성화"}</p>
-      <p>Created At: {fmtDate(user?.createdAt)}</p>
+      <div>
+        <h1>{user?.name}</h1>
+        <p>Email: {user?.email}</p>
+        <p>Role: {user?.role}</p>
+        <p>Status: {user?.active ? "활동중" : "비활성화"}</p>
+        <p>Created At: {fmtDate(user?.createdAt)}</p>
+      </div>
+
+      <div>
+        <h2>결제 내역</h2>
+        <li>
+          {payment?.map((p) => (
+            <li key={p.id}>
+              <p>결제일: {fmtDate(p.createdAt)}</p>
+              <p>상태: {p.status}</p>
+              <p>결제 방법: {p.method}</p>
+              <p>결제 금액 : {formatPrice(p.amount)}</p>
+            </li>
+          ))}
+        </li>
+      </div>
 
       {openModal && (
         <Modal isOpen={openModal} onClose={handleCloseModal}>
