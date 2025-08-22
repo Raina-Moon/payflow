@@ -2,6 +2,7 @@ import React from "react";
 import { useUsersQuery } from "../hooks";
 import { fmtDate } from "../../../shared/lib/date";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const UsersListPage = () => {
   const { data: users, isLoading, isError } = useUsersQuery();
@@ -13,11 +14,13 @@ const UsersListPage = () => {
       <List>
         {users?.map((u) => (
           <ListCard key={u.id}>
-            <p>{u.name}</p>
-            <p>{u.email}</p>
-            <p>{u.role}</p>
-            <p>{u.active ? "활동중" : "비활성화"}</p>
-            <p>{fmtDate(u.createdAt)}</p>
+            <CardLink to={`/users/${u.id}`}>
+              <p>{u.name}</p>
+              <p>{u.email}</p>
+              <p>{u.role}</p>
+              <p>{u.active ? "활동중" : "비활성화"}</p>
+              <p>{fmtDate(u.createdAt)}</p>
+            </CardLink>
           </ListCard>
         ))}
       </List>
@@ -58,4 +61,9 @@ const ListCard = styled.li`
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
+`;
+
+const CardLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;
