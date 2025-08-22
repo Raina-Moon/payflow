@@ -1,23 +1,61 @@
-import { api } from "../../lib/apiClient";
 import { deleteUser, getUserById, listUsers, updateUser } from "./api";
-import type { User } from "./types";
+import type { Role, User } from "./types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const qk = {
-  users: ["users"] as const,
-  user: (id: number) => ["users", id] as const,
+  base: ["users"] as const,
+  lists: () => ["users", "list"] as const,
+  list: (filters?: UserFilter) => ["users", "list", filters ?? {}] as const,
+  detail: (id: number) => ["users", "detail", id] as const,
 };
 
-export function useUsersQuery() {
+export type UserFilter = {
+  q?: string;
+  active?: boolean;
+  role?: Role | "all";
+};
+
+export function useUsersQuery(filters?: UserFilter) {
   return useQuery<User[]>({
-    queryKey: qk.users,
-    queryFn: listUsers,
+    queryKey: qk.list(filters),
+    queryFn: async () => {
+      const params = new URLSearchParams();
+
+      if (filters?.q) params.set("q", filters.q);
+      if (filters?.active !== undefined)
+        params.set("active", String(filters.active));
+      if (filters?.role && filters.role !== "all") {
+        params.set("role", filters.role);
+      }
+      const qs = params.toString();
+      const data = await listUsers(qs ? `?${qs}` : "");
+
+      let items = data;
+      if (filters?.q) {
+        const t = filters.q.toLowerCase();
+        items = items.filter(
+          (u: User) =>
+            u.name.toLowerCase().includes(t) ||
+            u.email.toLowerCase().includes(t)
+        );
+      }
+
+      if (filters?.active !== undefined) {
+        items = items.filter((u: User) => u.active === filters.active);
+      }
+
+      if (filters?.role && filters.role !== "all") {
+        items = items.filter((u: User) => u.role === filters.role);
+      }
+
+      return items;
+    },
   });
 }
 
 export function useUserQuery(id: number) {
   return useQuery<User>({
-    queryKey: qk.user(id),
+    queryKey: qk.detail(id),
     queryFn: () => getUserById(id),
     enabled: Number.isFinite(id),
   });
@@ -26,55 +64,55 @@ export function useUserQuery(id: number) {
 export function useDeleteUserMutation() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: deleteUser,
+    mutationFn: (id: number) => deleteUser(id),
     onMutate: async (id: number) => {
-      await qc.cancelQueries({ queryKey: qk.users });
-      const prevUsers = qc.getQueryData<User[]>(qk.users);
+      await qc.cancelQueries({ queryKey: qk.lists() });
+      const prevUsers = qc.getQueryData<User[]>(qk.lists());
 
-      qc.setQueryData<User[]>(qk.users, (old) =>
-        old ? old.filter((u) => u.id !== id) : []
+      qc.setQueryData<User[]>(qk.lists(), (old) =>
+        Array.isArray(old) ? old.filter((u) => u.id !== id) : old
       );
 
-      qc.removeQueries({ queryKey: qk.user(id) });
+      qc.removeQueries({ queryKey: qk.detail(id) });
 
       return { prevUsers };
     },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: qk.users });
+      qc.invalidateQueries({ queryKey: qk.lists() });
     },
     onError: (_err, _id, ctx) => {
-      qc.setQueryData(qk.users, ctx?.prevUsers);
+      qc.setQueryData(qk.lists(), ctx?.prevUsers);
     },
     onSettled: () => {
-      qc.invalidateQueries({ queryKey: qk.users });
+      qc.invalidateQueries({ queryKey: qk.lists() });
     },
   });
 }
 
 export function useUpdateUserMutation() {
-  const qc= useQueryClient();
+  const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({id,...user}) => updateUser(id, user),
+    mutationFn: ({ id, ...user }:Partial<User> & {id:number}) => updateUser(id, user),
     onMutate: async (user: Partial<User> & { id: number }) => {
-      await qc.cancelQueries({ queryKey: qk.users });
-      const prevUsers = qc.getQueryData<User[]>(qk.users);
+      await qc.cancelQueries({ queryKey: qk.lists() });
+      const prevUsers = qc.getQueryData<User[]>(qk.lists());
 
-      qc.setQueryData<User[]>(qk.users, (old) =>
+      qc.setQueryData<User[]>(qk.lists(), (old) =>
         old ? old.map((u) => (u.id === user.id ? { ...u, ...user } : u)) : []
       );
 
-      qc.removeQueries({ queryKey: qk.user(user.id) });
+      qc.removeQueries({ queryKey: qk.detail(user.id) });
 
       return { prevUsers };
     },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: qk.users });
+      qc.invalidateQueries({ queryKey: qk.lists() });
     },
     onError: (_err, _user, ctx) => {
-      qc.setQueryData(qk.users, ctx?.prevUsers);
+      qc.setQueryData(qk.lists(), ctx?.prevUsers);
     },
     onSettled: () => {
-      qc.invalidateQueries({ queryKey: qk.users });
+      qc.invalidateQueries({ queryKey: qk.lists() });
     },
   });
 }

@@ -1,8 +1,8 @@
 import { api } from "../../lib/apiClient";
 import type { User } from "./types";
 
-export async function listUsers() {
-  const res = await api.get<User[]>("/users");
+export async function listUsers(qs=""): Promise<User[]> {
+  const res = await api.get<User[]>(`/users${qs}`);
   return res.data;
 }
 
