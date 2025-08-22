@@ -57,6 +57,5 @@ export function useProductQuery(id: number) {
   return useQuery<Product>({
     queryKey: qk.product(id),
     queryFn: () => getProductById(id),
-    enabled: Number.isFinite(id),
   });
 }

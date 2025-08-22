@@ -1,270 +1,322 @@
 {
   "users": [
     {
-      "id": "2",
+      "id": 1,
+      "name": "User 1",
+      "email": "user1@example.com",
+      "role": "member",
+      "active": true,
+      "createdAt": "2024-07-01T08:00:00Z",
+      "password": "pass1"
+    },
+    {
+      "id": 2,
       "name": "Raina Kim",
       "email": "raina.moon@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-02T11:30:00Z"
+      "createdAt": "2024-07-02T11:30:00Z",
+      "password": "pass2"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Jason Lee",
       "email": "jason.lee@example.com",
       "role": "member",
       "active": false,
-      "createdAt": "2024-07-03T14:20:00Z"
+      "createdAt": "2024-07-03T14:20:00Z",
+      "password": "pass3"
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Brian Park",
       "email": "brian.park@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-04T09:15:00Z"
+      "createdAt": "2024-07-04T09:15:00Z",
+      "password": "pass4"
     },
     {
-      "id": "5",
+      "id": 5,
       "name": "Chloe Jang",
       "email": "chloe.jang@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-05T16:45:00Z"
+      "createdAt": "2024-07-05T16:45:00Z",
+      "password": "pass5"
     },
     {
-      "id": "7",
+      "id": 6,
+      "name": "User 6",
+      "email": "user6@example.com",
+      "role": "member",
+      "active": true,
+      "createdAt": "2024-07-06T08:00:00Z",
+      "password": "pass6"
+    },
+    {
+      "id": 7,
       "name": "Emily Kim",
       "email": "emily.kim@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-07T13:10:00Z"
+      "createdAt": "2024-07-07T13:10:00Z",
+      "password": "pass7"
     },
     {
-      "id": "9",
+      "id": 8,
+      "name": "User 8",
+      "email": "user8@example.com",
+      "role": "member",
+      "active": true,
+      "createdAt": "2024-07-08T08:00:00Z",
+      "password": "pass8"
+    },
+    {
+      "id": 9,
       "name": "Grace Han",
       "email": "grace.han@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-09T17:25:00Z"
+      "createdAt": "2024-07-09T17:25:00Z",
+      "password": "pass9"
     },
     {
-      "id": "10",
+      "id": 10,
       "name": "Henry Oh",
       "email": "henry.oh@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-10T11:55:00Z"
+      "createdAt": "2024-07-10T11:55:00Z",
+      "password": "pass10"
     },
     {
-      "id": "11",
+      "id": 11,
       "name": "Iris Baek",
       "email": "iris.baek@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-11T12:00:00Z"
+      "createdAt": "2024-07-11T12:00:00Z",
+      "password": "pass11"
     },
     {
-      "id": "12",
+      "id": 12,
       "name": "Jack Song",
       "email": "jack.song@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-12T13:00:00Z"
+      "createdAt": "2024-07-12T13:00:00Z",
+      "password": "pass12"
     },
     {
-      "id": "13",
+      "id": 13,
       "name": "Kelly Oh",
       "email": "kelly.oh@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-13T14:00:00Z"
+      "createdAt": "2024-07-13T14:00:00Z",
+      "password": "pass13"
     },
     {
-      "id": "14",
+      "id": 14,
       "name": "Leo Choi",
       "email": "leo.choi@example.com",
       "role": "member",
       "active": false,
-      "createdAt": "2024-07-14T15:00:00Z"
+      "createdAt": "2024-07-14T15:00:00Z",
+      "password": "pass14"
     },
     {
-      "id": "15",
+      "id": 15,
       "name": "Mia Kim",
       "email": "mia.kim@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-15T16:00:00Z"
+      "createdAt": "2024-07-15T16:00:00Z",
+      "password": "pass15"
     },
     {
-      "id": "17",
+      "id": 16,
+      "name": "User 16",
+      "email": "user16@example.com",
+      "role": "member",
+      "active": true,
+      "createdAt": "2024-07-16T08:00:00Z",
+      "password": "pass16"
+    },
+    {
+      "id": 17,
       "name": "Olivia Choi",
       "email": "olivia.choi@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-17T18:00:00Z"
+      "createdAt": "2024-07-17T18:00:00Z",
+      "password": "pass17"
     },
     {
-      "id": "18",
+      "id": 18,
       "name": "Peter Jung",
       "email": "peter.jung@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-18T19:00:00Z"
+      "createdAt": "2024-07-18T19:00:00Z",
+      "password": "pass18"
     },
     {
-      "id": "19",
+      "id": 19,
       "name": "Quinn Lee",
       "email": "quinn.lee@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-19T20:00:00Z"
+      "createdAt": "2024-07-19T20:00:00Z",
+      "password": "pass19"
     },
     {
-      "id": "20",
+      "id": 20,
       "name": "Rachel Oh",
       "email": "rachel.oh@example.com",
       "role": "member",
       "active": true,
-      "createdAt": "2024-07-20T21:00:00Z"
+      "createdAt": "2024-07-20T21:00:00Z",
+      "password": "pass20"
     }
   ],
   "products": [
     {
-      "id": "1",
+      "id": 1,
       "name": "스마트 워치",
       "price": 150000,
       "category": "전자기기",
       "image": "https://picsum.photos/id/237/400/300"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "무선 이어폰",
       "price": 120000,
       "category": "전자기기",
       "image": "https://picsum.photos/id/239/400/300"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "마우스",
       "price": 25000,
       "category": "전자기기",
       "image": "https://picsum.photos/id/240/400/300"
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "키보드",
       "price": 80000,
       "category": "전자기기",
       "image": "https://picsum.photos/id/241/400/300"
     },
     {
-      "id": "5",
+      "id": 5,
       "name": "노트북 가방",
       "price": 35000,
       "category": "액세서리",
       "image": "https://picsum.photos/id/242/400/300"
     },
     {
-      "id": "6",
+      "id": 6,
       "name": "보조배터리",
       "price": 40000,
       "category": "액세서리",
       "image": "https://picsum.photos/id/243/400/300"
     },
     {
-      "id": "7",
+      "id": 7,
       "name": "텀블러",
       "price": 18000,
       "category": "생활용품",
       "image": "https://picsum.photos/id/244/400/300"
     },
     {
-      "id": "8",
+      "id": 8,
       "name": "마우스 패드",
       "price": 12000,
       "category": "액세서리",
       "image": "https://picsum.photos/id/244/400/300"
     },
     {
-      "id": "9",
+      "id": 9,
       "name": "블루투스 스피커",
       "price": 75000,
       "category": "전자기기",
       "image": "https://picsum.photos/id/244/400/300"
     },
     {
-      "id": "10",
+      "id": 10,
       "name": "USB 허브",
       "price": 20000,
       "category": "액세서리",
       "image": "https://picsum.photos/id/247/400/300"
     },
     {
-      "id": "11",
+      "id": 11,
       "name": "웹캠",
       "price": 95000,
       "category": "전자기기",
       "image": "https://picsum.photos/id/248/400/300"
     },
     {
-      "id": "12",
+      "id": 12,
       "name": "스탠드 조명",
       "price": 50000,
       "category": "생활용품",
       "image": "https://picsum.photos/id/249/400/300"
     },
     {
-      "id": "13",
+      "id": 13,
       "name": "미니 선풍기",
       "price": 22000,
       "category": "생활용품",
       "image": "https://picsum.photos/id/250/400/300"
     },
     {
-      "id": "14",
+      "id": 14,
       "name": "수첩",
       "price": 8000,
       "category": "문구류",
       "image": "https://picsum.photos/id/251/400/300"
     },
     {
-      "id": "15",
+      "id": 15,
       "name": "볼펜 세트",
       "price": 15000,
       "category": "문구류",
       "image": "https://picsum.photos/id/252/400/300"
     },
     {
-      "id": "16",
+      "id": 16,
       "name": "에어 프라이어",
       "price": 100000,
       "category": "가전제품",
       "image": "https://picsum.photos/id/253/400/300"
     },
     {
-      "id": "17",
+      "id": 17,
       "name": "토스터",
       "price": 65000,
       "category": "가전제품",
       "image": "https://picsum.photos/id/254/400/300"
     },
     {
-      "id": "18",
+      "id": 18,
       "name": "핸드 블렌더",
       "price": 55000,
       "category": "가전제품",
       "image": "https://picsum.photos/id/255/400/300"
     },
     {
-      "id": "19",
+      "id": 19,
       "name": "도마",
       "price": 15000,
       "category": "주방용품",
       "image": "https://picsum.photos/id/256/400/300"
     },
     {
-      "id": "20",
+      "id": 20,
       "name": "프라이팬",
       "price": 28000,
       "category": "주방용품",
@@ -273,7 +325,7 @@
   ],
   "payments": [
     {
-      "id": "1",
+      "id": 1,
       "userId": 1,
       "productId": 1,
       "status": "SUCCESS",
@@ -282,7 +334,7 @@
       "createdAt": "2024-07-17T10:05:00Z"
     },
     {
-      "id": "2",
+      "id": 2,
       "userId": 2,
       "productId": 2,
       "status": "SUCCESS",
@@ -291,7 +343,7 @@
       "createdAt": "2024-07-17T11:10:00Z"
     },
     {
-      "id": "3",
+      "id": 3,
       "userId": 3,
       "productId": 3,
       "status": "FAILED",
@@ -300,7 +352,7 @@
       "createdAt": "2024-07-17T12:00:00Z"
     },
     {
-      "id": "4",
+      "id": 4,
       "userId": 4,
       "productId": 4,
       "status": "SUCCESS",
@@ -309,7 +361,7 @@
       "createdAt": "2024-07-17T13:30:00Z"
     },
     {
-      "id": "5",
+      "id": 5,
       "userId": 5,
       "productId": 5,
       "status": "SUCCESS",
@@ -318,7 +370,7 @@
       "createdAt": "2024-07-17T14:45:00Z"
     },
     {
-      "id": "6",
+      "id": 6,
       "userId": 1,
       "productId": 6,
       "status": "SUCCESS",
@@ -327,7 +379,7 @@
       "createdAt": "2024-07-16T09:20:00Z"
     },
     {
-      "id": "7",
+      "id": 7,
       "userId": 2,
       "productId": 7,
       "status": "PENDING",
@@ -336,7 +388,7 @@
       "createdAt": "2024-07-16T15:00:00Z"
     },
     {
-      "id": "8",
+      "id": 8,
       "userId": 3,
       "productId": 8,
       "status": "SUCCESS",
@@ -345,7 +397,7 @@
       "createdAt": "2024-07-15T11:00:00Z"
     },
     {
-      "id": "9",
+      "id": 9,
       "userId": 4,
       "productId": 1,
       "status": "SUCCESS",
@@ -354,7 +406,7 @@
       "createdAt": "2024-07-14T10:40:00Z"
     },
     {
-      "id": "10",
+      "id": 10,
       "userId": 5,
       "productId": 2,
       "status": "SUCCESS",
@@ -363,7 +415,7 @@
       "createdAt": "2024-07-13T12:15:00Z"
     },
     {
-      "id": "11",
+      "id": 11,
       "userId": 6,
       "productId": 3,
       "status": "SUCCESS",
@@ -372,7 +424,7 @@
       "createdAt": "2024-07-12T10:00:00Z"
     },
     {
-      "id": "12",
+      "id": 12,
       "userId": 7,
       "productId": 4,
       "status": "SUCCESS",
@@ -381,7 +433,7 @@
       "createdAt": "2024-07-11T10:00:00Z"
     },
     {
-      "id": "13",
+      "id": 13,
       "userId": 8,
       "productId": 5,
       "status": "SUCCESS",
@@ -390,7 +442,7 @@
       "createdAt": "2024-07-10T10:00:00Z"
     },
     {
-      "id": "14",
+      "id": 14,
       "userId": 9,
       "productId": 6,
       "status": "SUCCESS",
@@ -399,7 +451,7 @@
       "createdAt": "2024-07-09T10:00:00Z"
     },
     {
-      "id": "15",
+      "id": 15,
       "userId": 10,
       "productId": 7,
       "status": "SUCCESS",
@@ -408,7 +460,7 @@
       "createdAt": "2024-07-08T10:00:00Z"
     },
     {
-      "id": "17",
+      "id": 17,
       "userId": 12,
       "productId": 9,
       "status": "SUCCESS",
@@ -417,7 +469,7 @@
       "createdAt": "2024-07-17T17:00:00Z"
     },
     {
-      "id": "18",
+      "id": 18,
       "userId": 13,
       "productId": 10,
       "status": "PENDING",
@@ -426,7 +478,7 @@
       "createdAt": "2024-07-17T18:00:00Z"
     },
     {
-      "id": "19",
+      "id": 19,
       "userId": 14,
       "productId": 11,
       "status": "SUCCESS",
@@ -435,7 +487,7 @@
       "createdAt": "2024-07-17T19:00:00Z"
     },
     {
-      "id": "20",
+      "id": 20,
       "userId": 15,
       "productId": 12,
       "status": "SUCCESS",

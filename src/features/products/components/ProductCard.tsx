@@ -1,28 +1,44 @@
-import React from "react";
 import { useProductsQuery } from "../hooks";
 import styled from "styled-components";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { formatPrice } from "../../../shared/lib/price";
+import ProductCardSkeleton from "./ProductCard.Skeleton";
+import { useState } from "react";
+import Modal from "../../../shared/components/Modal";
+import ProductDetail from "./ProductDetail";
 
 const ProductCard = () => {
-  const [params, setParams] = useSearchParams();
+  const [params] = useSearchParams();
   const q = params.get("q") ?? "";
   const category = params.get("category") ?? "all";
 
-  const {
-    data: product,
-    isLoading,
-    isError,
-  } = useProductsQuery({ q, category });
+  const [selectedProdId, setSelectedProdId] = useState<number | null>(null);
 
-  const navigate = useNavigate();
+  const { data: product, isLoading } = useProductsQuery({ q, category });
 
-  if (isLoading) return <div>로딩중...</div>;
-  if (isError) return <div>데이터를 불러오는 도중 오류가 발생했습니다.</div>;
+  const handleDetailModal = (id: number) => {
+    setSelectedProdId(id);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedProdId(null);
+  };
+
+
+  if (isLoading) {
+    return (
+      <CardList>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <ProductCardSkeleton key={index} />
+        ))}
+      </CardList>
+    );
+  }
+
   if (!product?.length) return <div>조건에 맞는 상품이 없습니다.</div>;
 
   return (
-    <div>
+    <>
       <CardList>
         {product.map((i) => (
           <Card key={i.id}>
@@ -30,13 +46,17 @@ const ProductCard = () => {
             <p>{i.name}</p>
             <p>{formatPrice(i.price)}</p>
             <p>{i.category}</p>
-            <button onClick={() => navigate(`/products/${i.id}`)}>
-              상세보기
-            </button>
+            <button onClick={() => handleDetailModal(i.id)}>상세보기</button>
           </Card>
         ))}
       </CardList>
-    </div>
+
+      {selectedProdId && (
+        <Modal isOpen={!!selectedProdId} onClose={handleCloseModal}>
+          <ProductDetail productId={selectedProdId} />
+        </Modal>
+      )}
+    </>
   );
 };
 

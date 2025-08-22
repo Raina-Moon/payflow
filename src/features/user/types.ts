@@ -5,6 +5,7 @@ export interface User {
   createdAt: string;
   role: Role;
   active: boolean;
+  password?: string;
 }
 
 export type Role = "manager" | "member" | "admin";
