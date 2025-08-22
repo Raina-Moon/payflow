@@ -3,6 +3,7 @@ import { useUsersQuery } from "../hooks";
 import { fmtDate } from "../../../shared/lib/date";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import UserFilters from "../components/UserFilters";
 
 const UsersListPage = () => {
   const { data: users, isLoading, isError } = useUsersQuery();
@@ -12,6 +13,7 @@ const UsersListPage = () => {
   return (
     <Wrap>
       <List>
+        <UserFilters />
         {users?.map((u) => (
           <ListCard key={u.id}>
             <CardLink to={`/users/${u.id}`}>
