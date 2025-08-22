@@ -27,7 +27,7 @@ const UserFilters = () => {
       setParams(next, { replace: true });
     }, 300);
     return () => clearTimeout(t);
-  }, [q, params, setParams]);
+  }, [q]);
 
   const onChangeActive = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const v = e.target.value;

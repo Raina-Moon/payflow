@@ -1,12 +1,37 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useUsersQuery } from "../hooks";
 import { fmtDate } from "../../../shared/lib/date";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import UserFilters from "../components/UserFilters";
+import type { Role } from "../types";
 
 const UsersListPage = () => {
-  const { data: users, isLoading, isError } = useUsersQuery();
+  const [params] = useSearchParams();
+
+  const qParams = params.get("q") || "";
+  const activeParams = params.get("active") || "all";
+  const roleParams = params.get("role") || "all";
+
+  const filters = useMemo(() => {
+    const active =
+      activeParams === "true"
+        ? true
+        : activeParams === "false"
+        ? false
+        : undefined;
+
+    const role =
+      roleParams && roleParams !== "all" ? (roleParams as Role) : undefined;
+
+    return {
+      q: qParams,
+      active,
+      role,
+    };
+  }, [qParams, activeParams, roleParams]);
+
+  const { data: users, isLoading, isError } = useUsersQuery(filters);
 
   if (isLoading) return <div>로딩중...</div>;
   if (isError) return <div>데이터를 불러오는 도중 오류가 발생했습니다.</div>;
