@@ -1,7 +1,8 @@
 import React from "react";
 import { useProductsQuery } from "../../products/hooks";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { formatPrice } from "../../../shared/lib/price";
 
 const ProductCard = () => {
   const { data: product, isLoading, isError } = useProductsQuery();
@@ -16,7 +17,7 @@ const ProductCard = () => {
           <Card key={i.id}>
             <img src={i.image} alt={i.name} />
             <p>{i.name}</p>
-            <p>{i.price}</p>
+            <p>{formatPrice(i.price)}</p>
             <p>{i.category}</p>
             <button onClick={() => navigate(`/products/${i.id}`)}>
               상세보기
