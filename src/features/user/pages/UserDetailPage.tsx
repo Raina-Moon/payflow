@@ -42,7 +42,31 @@ const UserDetailPage = () => {
 
       {openModal && (
         <Modal isOpen={openModal} onClose={handleCloseModal}>
-          <p>모달</p>
+          <p>사용자 수정</p>
+          <form>
+            <label>
+              이름:
+              <input type="text" defaultValue={user.name} />
+            </label>
+            <label>
+              이메일:
+              <input type="email" defaultValue={user.email} />
+            </label>
+            <label>
+              역할:
+              <select defaultValue={user.role}>
+                <option value="member">사용자</option>
+                <option value="manager">관리자</option>
+                <option value="admin">어드민</option>
+              </select>
+            </label>
+            <label>
+              활성화:
+              <input type="checkbox" defaultChecked={user.active} />
+            </label>
+            <button type="submit">수정</button>
+            <button>취소</button>
+          </form>
         </Modal>
       )}
     </div>
