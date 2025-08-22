@@ -12,8 +12,12 @@ export async function getPaymentById(id: number) {
 }
 
 export async function getPaymentByUserId(userId: number) {
-  const res = await api.get<Payment[]>(`/payments`,{
+  const res = await api.get<Payment[]>(`/payments`, {
     params: { userId },
   });
   return res.data;
+}
+
+export async function deletePayment(id: number) {
+  await api.delete(`/payments/${id}`);
 }

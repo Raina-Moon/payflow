@@ -1,14 +1,6 @@
 {
   "users": [
     {
-      "id": "1",
-      "name": "Alex Kim",
-      "email": "alex.kim@example.com",
-      "role": "manager",
-      "active": true,
-      "createdAt": "2024-07-01T10:00:00Z"
-    },
-    {
       "id": "2",
       "name": "Raina Kim",
       "email": "raina.moon@example.com",
@@ -41,28 +33,12 @@
       "createdAt": "2024-07-05T16:45:00Z"
     },
     {
-      "id": "6",
-      "name": "David Choi",
-      "email": "david.choi@example.com",
-      "role": "admin",
-      "active": true,
-      "createdAt": "2024-07-06T12:00:00Z"
-    },
-    {
       "id": "7",
       "name": "Emily Kim",
       "email": "emily.kim@example.com",
       "role": "member",
       "active": true,
       "createdAt": "2024-07-07T13:10:00Z"
-    },
-    {
-      "id": "8",
-      "name": "Frank Lee",
-      "email": "frank.lee@example.com",
-      "role": "member",
-      "active": false,
-      "createdAt": "2024-07-08T08:50:00Z"
     },
     {
       "id": "9",
@@ -119,14 +95,6 @@
       "role": "member",
       "active": true,
       "createdAt": "2024-07-15T16:00:00Z"
-    },
-    {
-      "id": "16",
-      "name": "Noah Park",
-      "email": "noah.park@example.com",
-      "role": "member",
-      "active": true,
-      "createdAt": "2024-07-16T17:00:00Z"
     },
     {
       "id": "17",
@@ -438,15 +406,6 @@
       "method": "CARD",
       "amount": 18000,
       "createdAt": "2024-07-08T10:00:00Z"
-    },
-    {
-      "id": "16",
-      "userId": 11,
-      "productId": 8,
-      "status": "SUCCESS",
-      "method": "CARD",
-      "amount": 12000,
-      "createdAt": "2024-07-17T16:00:00Z"
     },
     {
       "id": "17",

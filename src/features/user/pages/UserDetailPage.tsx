@@ -8,7 +8,7 @@ import {
 import { fmtDate } from "../../../shared/lib/date";
 import Modal from "../../../shared/components/Modal";
 import type { Role } from "../types";
-import { usePaymentByUserIdQuery } from "../../payments/hooks";
+import { usePaymentByUserIdQuery, usePaymentDeleteMutation } from "../../payments/hooks";
 import { formatPrice } from "../../../shared/lib/price";
 
 const UserDetailPage = () => {
@@ -19,6 +19,7 @@ const UserDetailPage = () => {
   const { data: user, isLoading, isError } = useUserQuery(Number(id));
   const deleteMutation = useDeleteUserMutation();
   const { data: payment } = usePaymentByUserIdQuery(Number(id));
+  const deletePaymentMutation = usePaymentDeleteMutation();
 
   const handleDelete = () => {
     deleteMutation.mutate(Number(id), {
@@ -55,6 +56,14 @@ const UserDetailPage = () => {
     });
   };
 
+  const handleDeletePayment = (paymentId: number) => {
+    deletePaymentMutation.mutate(paymentId, {
+      onSuccess: () => {
+        alert("결제 내역이 삭제되었습니다.");
+      },
+    });
+  };
+
   if (isLoading) return <div>로딩중...</div>;
   if (isError) return <div>데이터를 불러오는 도중 오류가 발생했습니다.</div>;
   if (!user) return <div>사용자를 찾을 수 없습니다.</div>;
@@ -75,16 +84,17 @@ const UserDetailPage = () => {
 
       <div>
         <h2>결제 내역</h2>
-        <li>
+        <ul>
           {payment?.map((p) => (
             <li key={p.id}>
+              <button onClick={() =>handleDeletePayment(p.id)}>삭제</button>
               <p>결제일: {fmtDate(p.createdAt)}</p>
               <p>상태: {p.status}</p>
               <p>결제 방법: {p.method}</p>
               <p>결제 금액 : {formatPrice(p.amount)}</p>
             </li>
           ))}
-        </li>
+        </ul>
       </div>
 
       {openModal && (
