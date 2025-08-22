@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDeleteUserMutation, useUserQuery } from "../hooks";
+import {
+  useDeleteUserMutation,
+  useUpdateUserMutation,
+  useUserQuery,
+} from "../hooks";
 import { fmtDate } from "../../../shared/lib/date";
 import Modal from "../../../shared/components/Modal";
+import type { Role } from "../types";
 
 const UserDetailPage = () => {
   const { id } = useParams();
@@ -24,6 +29,29 @@ const UserDetailPage = () => {
     setOpenModal(false);
   };
 
+  const updateMutation = useUpdateUserMutation();
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    if (!id) return;
+
+    const formData = new FormData(e.currentTarget);
+
+    const updatedUser = {
+      id: Number(id),
+      name: (formData.get("name") as string)?.trim() || user?.name,
+      email: (formData.get("email") as string)?.trim() || user?.email,
+      role: (formData.get("role") as Role) || user?.role,
+      active: formData.get("active") === "on",
+    };
+
+    updateMutation.mutate(updatedUser, {
+      onSuccess: () => {
+        setOpenModal(false);
+      },
+    });
+  };
+
   if (isLoading) return <div>로딩중...</div>;
   if (isError) return <div>데이터를 불러오는 도중 오류가 발생했습니다.</div>;
   if (!user) return <div>사용자를 찾을 수 없습니다.</div>;
@@ -43,18 +71,18 @@ const UserDetailPage = () => {
       {openModal && (
         <Modal isOpen={openModal} onClose={handleCloseModal}>
           <p>사용자 수정</p>
-          <form>
+          <form onSubmit={handleSubmit}>
             <label>
               이름:
-              <input type="text" defaultValue={user.name} />
+              <input name="name" type="name" defaultValue={user.name} />
             </label>
             <label>
               이메일:
-              <input type="email" defaultValue={user.email} />
+              <input name="email" type="email" defaultValue={user.email} />
             </label>
             <label>
               역할:
-              <select defaultValue={user.role}>
+              <select defaultValue={user.role} name="role">
                 <option value="member">사용자</option>
                 <option value="manager">관리자</option>
                 <option value="admin">어드민</option>
@@ -62,10 +90,16 @@ const UserDetailPage = () => {
             </label>
             <label>
               활성화:
-              <input type="checkbox" defaultChecked={user.active} />
+              <input
+                name="active"
+                type="checkbox"
+                defaultChecked={user.active}
+              />
             </label>
-            <button type="submit">수정</button>
-            <button>취소</button>
+            <button type="submit">
+              {updateMutation.isPending ? "수정중..." : "수정"}
+            </button>
+            <button onClick={handleCloseModal}>취소</button>
           </form>
         </Modal>
       )}
