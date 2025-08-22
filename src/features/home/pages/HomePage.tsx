@@ -1,7 +1,8 @@
 import React from "react";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../../products/components/ProductCard";
 import { useUsersQuery } from "../../user/hooks";
 import { useNavigate } from "react-router-dom";
+import ProductFilters from "../../products/components/ProductFilters";
 
 const HomePage = () => {
   const { data: users } = useUsersQuery();
@@ -21,6 +22,7 @@ const HomePage = () => {
         <p>TOP 5 구매자(사용자명/총 결제액)</p>
       </div>
       <div>
+        <ProductFilters />
         <ProductCard />
       </div>
     </div>

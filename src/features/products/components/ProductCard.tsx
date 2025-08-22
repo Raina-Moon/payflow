@@ -1,19 +1,30 @@
 import React from "react";
-import { useProductsQuery } from "../../products/hooks";
+import { useProductsQuery } from "../hooks";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { formatPrice } from "../../../shared/lib/price";
 
 const ProductCard = () => {
-  const { data: product, isLoading, isError } = useProductsQuery();
+  const [params, setParams] = useSearchParams();
+  const q = params.get("q") ?? "";
+  const category = params.get("category") ?? "all";
+
+  const {
+    data: product,
+    isLoading,
+    isError,
+  } = useProductsQuery({ q, category });
+
   const navigate = useNavigate();
+
   if (isLoading) return <div>로딩중...</div>;
   if (isError) return <div>데이터를 불러오는 도중 오류가 발생했습니다.</div>;
+  if (!product?.length) return <div>조건에 맞는 상품이 없습니다.</div>;
 
   return (
     <div>
       <CardList>
-        {product?.map((i) => (
+        {product.map((i) => (
           <Card key={i.id}>
             <img src={i.image} alt={i.name} />
             <p>{i.name}</p>
