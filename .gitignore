@@ -25,3 +25,5 @@ dist-ssr
 
 .pnp.loader.mjs
 .yarn/install-state.gz
+
+.env
