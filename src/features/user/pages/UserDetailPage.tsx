@@ -74,7 +74,7 @@ const UserDetailPage = () => {
           <form onSubmit={handleSubmit}>
             <label>
               이름:
-              <input name="name" type="name" defaultValue={user.name} />
+              <input name="name" type="text" defaultValue={user.name} />
             </label>
             <label>
               이메일:
@@ -99,7 +99,9 @@ const UserDetailPage = () => {
             <button type="submit">
               {updateMutation.isPending ? "수정중..." : "수정"}
             </button>
-            <button onClick={handleCloseModal}>취소</button>
+            <button type="button" onClick={handleCloseModal}>
+              취소
+            </button>
           </form>
         </Modal>
       )}

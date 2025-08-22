@@ -21,9 +21,12 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   }, [isOpen, onClose]);
 
   return (
-    <ModalOverlay onClick={onClose}>
-      <ModalContent onAbort={(e) => e.stopPropagation()}>
-        <CloseButton className="modal-close" onClick={onClose}>
+    <ModalOverlay onMouseDown={onClose} aria-modal="true">
+      <ModalContent
+        onClick={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        <CloseButton className="modal-close" onClick={onClose} aria-label="Close modal">
           &times;
         </CloseButton>
         {children}
