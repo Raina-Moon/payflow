@@ -18,11 +18,11 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
     return () => {
       document.removeEventListener("keydown", handleEsc);
     };
-  }, [open, onClose]);
+  }, [isOpen, onClose]);
 
   return (
     <ModalOverlay onClick={onClose}>
-      <ModalContent>
+      <ModalContent onAbort={(e) => e.stopPropagation()}>
         <CloseButton className="modal-close" onClick={onClose}>
           &times;
         </CloseButton>
